@@ -1,3 +1,7 @@
+/* This fixes filenames created on a vfat system from an operating
+ * system with UTF-8 locale while the vfat was mounted with a iocharset
+ * different from UTF-8. See README for more details. */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -15,6 +19,9 @@
 #include <ctype.h>
 
 int verbose = 0;
+
+/* This is the iocharset that the vfat filesystem was mounted with */
+#define IOCHARSET_ENCODING "ISO-8859-1"
 
 /* Print the hexadecimal bytes. */
 
@@ -156,7 +163,7 @@ fix(char * in_string)
     if (!utf16_string)
         return NULL;
 
-    conv_desc = initialize ("UTF-16LE", "ISO-8859-1");
+    conv_desc = initialize ("UTF-16LE", IOCHARSET_ENCODING);
     utf8_string = convert (conv_desc, utf16_string, &len);
     finalize (conv_desc);
 
