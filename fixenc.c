@@ -240,6 +240,8 @@ int main (int argc, char **argv )
                     printf("Failed to get user input\n");
                     return 1;
                 }
+            } else {
+                printf("%s\n", cmd);
             }
             if (tolower(cmd[0]) == 'y')
                 fixed_fname = strdup(n->fname);
