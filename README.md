@@ -78,3 +78,16 @@ The directory will be crawled in bread-first order and all files renamed.
 
 Use `-d` flag to do a dry-run and print the filenames before actual renames
 (note that it doesn't descend into unrenamed directories).
+
+lsdir
+=====
+
+Hexdumps a directory:
+
+    $ ./lsdir / | head -5
+    2e 2e 
+    73 65 6c 69 6e 75 78 
+    62 6f 6f 74 
+    63 6f 72 65 
+    76 61 72 
+
