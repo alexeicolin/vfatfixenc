@@ -234,7 +234,7 @@ int main (int argc, char **argv )
 
             // Conversion fails on already converted filenames, so
             // safe to simply to use the original, but let's ask the user.
-            printf("Conversion failed. Use old ('%s')? (y/n/Y/N): ", n->fname);
+            printf("Conversion failed. Use old ('%s')? (y/Y/n): ", n->fname);
             if (!cmd[0]) {
                 if (1 != scanf("%1s", cmd)) {
                     printf("Failed to get user input\n");
