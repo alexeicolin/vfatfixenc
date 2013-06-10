@@ -91,3 +91,8 @@ Hexdumps a directory:
     63 6f 72 65 
     76 61 72 
 
+Credits
+=======
+
+iconv interfacing adapted from:
+http://www.lemoda.net/c/iconv-example/iconv-example.html
