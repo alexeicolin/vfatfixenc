@@ -71,6 +71,8 @@ the tool reverses this (after first undoing kernel's conversion on read):
 Install and Usage
 =================
 
+First install [libiconv](http://www.gnu.org/software/libiconv/). Then,
+
     $ make 
     $ ./fixenc /path/to/dir/on/vfat
 
