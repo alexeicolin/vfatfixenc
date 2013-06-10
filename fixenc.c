@@ -5,19 +5,18 @@
 #include <errno.h>
 #include <string.h>
 #include <errno.h>
-#include <stdlib.h>
 #include <sys/types.h>
 #include <dirent.h>
-#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/param.h>
 #include <unistd.h>
 #include <sys/queue.h>
-
-/* Print the hexadecimal bytes. */
+#include <ctype.h>
 
 int verbose = 0;
+
+/* Print the hexadecimal bytes. */
 
 void
 showhex (const char * what, const char * a, int len)
@@ -188,7 +187,7 @@ int main (int argc, char **argv )
     char old_path[PATH_MAX];
     char *in_path;
     int dry_run = 0;
-    char cmd[2]; // one-character command
+    char cmd[2] = {0}; // one-character command
 
 	DIR* dir = NULL;
 	struct dirent *entry;
@@ -225,16 +224,22 @@ int main (int argc, char **argv )
 
         fixed_fname = fix(n->fname);
         if (!fixed_fname) {
-            printf("Conversion failed. Use old ('%s')? (y/n): ", n->fname);
-            if (1 != scanf("%1s", cmd)) {
-                printf("Failed to get user input\n");
-                return 1;
+
+            // Conversion fails on already converted filenames, so
+            // safe to simply to use the original, but let's ask the user.
+            printf("Conversion failed. Use old ('%s')? (y/n/Y/N): ", n->fname);
+            if (!cmd[0]) {
+                if (1 != scanf("%1s", cmd)) {
+                    printf("Failed to get user input\n");
+                    return 1;
+                }
             }
-            printf("\n");
-            if (!strcmp(cmd, "y"))
+            if (tolower(cmd[0]) == 'y')
                 fixed_fname = strdup(n->fname);
             else
                return 1;
+            if (toupper(cmd[0]) != cmd[0]) // upper-cased means don't ask again
+                cmd[0] = 0;
         }
 
         bzero(fixed_path, PATH_MAX);
