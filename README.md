@@ -68,6 +68,11 @@ the tool reverses this (after first undoing kernel's conversion on read):
     ... -----------------------> UTF-8 bytes of filename  
          UTF-16 -> iso8859-1              
 
+As far as I tried, `convmv` doesn't help because either
+ * mount with `iocharset=iso8859-1` and convmv to UTF-16: can't do since can't
+   have UTF-16 filenames in Linux (0x00 cannot be in middle of strings).
+ * mount with `iocharset=utf8`: still need to convmv through UTF-16
+
 Install and Usage
 =================
 
